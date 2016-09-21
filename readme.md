@@ -64,6 +64,7 @@ statuses. As an example, if you were to run the report pointed at a
 server config like above you'll get an output like so
 
 ``` {.example}
+[~] ->> status-report 192.168.1.2
      _        _                                         _   
  ___| |_ __ _| |_ _   _ ___   _ __ ___ _ __   ___  _ __| |_ 
 / __| __/ _` | __| | | / __| | '__/ _ \ '_ \ / _ \| '__| __|
