@@ -39,14 +39,14 @@ Finally start the server, pointing it at the configuration file for
 status results
 
 #+BEGIN_SRC shell
-  status-report-server -c /path/to/config.json
+  csi -ss server.scm /path/to/config.json
 #+END_SRC
 
 From the client side, all you need to do is run the client, pointing
 it at the ip of the server.
 
 #+BEGIN_SRC shell
-  status-report $IP
+  csi -ss client.scm $IP
 #+END_SRC
 
 It will run, and give a nice output of the processes, and their
