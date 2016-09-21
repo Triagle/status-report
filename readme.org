@@ -54,12 +54,11 @@ statuses. As an example, if you were to run the report pointed at a
 server config like above you'll get an output like so
 
 #+BEGIN_EXAMPLE
-[~] ->> status-report 192.168.20.26
+[~] ->> csi -ss client.scm 192.168.20.26
 .: Status report for 192.168.20.26 :.
 
 
 - Syncthing :: UP
-- Test :: UP
 
 
 Looks like all checks have passed!
