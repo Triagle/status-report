@@ -19,7 +19,7 @@
     (udp-bind! s "::" port)
     s))
 (define (server-start status-file)
-  (let ((s (bind-port! 6060)))
+  (let ((s (bind-port! 1337)))
     ;; No receive timeout
     (socket-receive-timeout #f)
     ;; Setup named let
