@@ -1,6 +1,5 @@
-(require-extension medea shell udp6 socket)
-(use medea shell udp6 socket)
-
+(require-extension medea shell tcp6 socket)
+(use medea shell tcp6 socket)
 (define (get-json path)
   (with-input-from-file path
     (lambda ()
@@ -14,30 +13,14 @@
                            (write-json alist))))
 (define (count-bytes string)
   (string-length string))
-(define (bind-port! port)
-  (let ((s (udp-open-socket 'inet6)))
-    (udp-bind! s "::" port)
-    s))
 (define (server-start status-file)
-  (let ((s (bind-port! 1337)))
-    ;; No receive timeout
-    (socket-receive-timeout #f)
-    ;; Setup named let
-    (let loop ((cur-status ""))
-      ;; Wait on data from client
-      (receive (len str host port) (udp-recvfrom s 8)
-        ;; Run case on resulting string
-        (cond 
-         ;; If command is STATUS, prepare status report and return bytes
-         ((equal? str "STATUS") (let ((status (alist->json (make-status-report (get-json status-file)))))
-                                  (udp-sendto s host port (number->string (count-bytes status)))
-                                  (loop status)))
-         ;; If client is read, send json data
-         ((equal? str "READY") (udp-sendto s host port cur-status))
-         (#t (print "Unexpected bytes from " host " " str)))
-        ;; else loop if timeout is reached
-        (loop cur-status)))
-    (udp-close-socket s)))
+  (let loop ((connection (tcp-listen 1337)))
+    (define-values (i o) (tcp-accept connection))
+    (when (equal? (read-line i) "STATUS")
+      (write-line (alist->json (make-status-report (get-json status-file))) o))
+    (close-input-port i)
+    (close-output-port o)
+    (loop connection)))
 (define (main args)
   (if (not (= (length args) 1))
       (print "Usage: server.scm [config file path]")
