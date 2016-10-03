@@ -33,3 +33,4 @@
   (if (not (= (length args) 1))
       (print "Usage: client.scm [ip]")
       (start-client (car args) 1337)))
+(main (command-line-arguments))

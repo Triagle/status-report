@@ -25,3 +25,4 @@
   (if (not (= (length args) 1))
       (print "Usage: server.scm [config file path]")
       (server-start (car args))))
+(main (command-line-arguments))
