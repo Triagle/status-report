@@ -1,6 +1,6 @@
 AC_INIT(status-report, 1.0)
 
-AM_INIT_AUTOMAKE()
+AM_INIT_AUTOMAKE([foreign])
 
 AC_PREREQ(2.12)
 
