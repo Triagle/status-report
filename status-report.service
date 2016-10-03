@@ -1,0 +1,11 @@
+[Unit]
+Description=Status Report TCP Server
+After=network.target
+
+[Service]
+ExecStart=status-report-server <your json config here>
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+
