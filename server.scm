@@ -23,6 +23,6 @@
     (loop connection)))
 (define (main args)
   (if (not (= (length args) 1))
-      (print "Usage: server.scm [config file path]")
+      (print "Usage: status-report-server [config file path]")
       (server-start (car args))))
 (main (command-line-arguments))

@@ -30,6 +30,6 @@
   (close-output-port o))
 (define (main args)
   (if (not (= (length args) 1))
-      (print "Usage: client.scm [ip]")
+      (print "Usage: status-report [ip]")
       (start-client (car args) 1337)))
 (main (command-line-arguments))
