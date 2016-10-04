@@ -9,7 +9,7 @@
 (define (up? status)
   (equal? (cdr status) "UP"))
 (define (all-up? statuses)
-  (not (any (lambda (x) (not (up? x))) statuses)))
+  (not (any (complement up?) statuses)))
 (define (print-report ip statuses)
   (fmt #t
        ".: Status report for "
@@ -27,8 +27,7 @@
   (write-line "STATUS" o)
   (print-report ip (read-json (read-line i)))
   (close-input-port i)
-  (close-output-port o)
-  )
+  (close-output-port o))
 (define (main args)
   (if (not (= (length args) 1))
       (print "Usage: client.scm [ip]")
