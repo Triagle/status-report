@@ -5,7 +5,7 @@ performs a few checks to ensure that everything is okay and returns a
 report of how the system is doing currently.
 * Why is it?
 Status report was made to create a simple way of getting a report of
-the current status of my raspberry pi, without having to ssh in and
+the current status of my Raspberry Pi, without having to ssh in and
 check myself.
 * Where is status report useful
 Status report is useful for the most basic of status checks, it should
@@ -16,6 +16,16 @@ for status checks as the io is blocking.
 Status report is very useful for Raspberry Pi machines running in
 a headless mode, it can check if services are running without the
 overhead of more professional tools that a hobbyist has no need for.
+* Building
+To build follow the easy™ autoconf workflow.
+
+#+BEGIN_SRC shell
+  git clone git@github.com:Triagle/status-report.git
+  autoreconf
+  ./configure
+  make
+  sudo make install
+#+END_SRC
 * Usage
 To use this program, first have the program setup on your server, and
 the client installed on whatever other computer you want to get the
@@ -28,7 +38,7 @@ to ensure syncthing is still operational.
 
 #+BEGIN_SRC javascript
   {
-      "Syncthing" : "if [ \"$(ps aux | grep syncthing | tail -n +2)\" ]; then echo \"UP\"; else echo \"DOWN\"; fi"
+      "Syncthing" : "systemctl is-active -q --user syncthing && echo UP || echo DOWN"
   }
 #+END_SRC
 
@@ -39,14 +49,14 @@ Finally start the server, pointing it at the configuration file for
 status results
 
 #+BEGIN_SRC shell
-  csi -ss server.scm /path/to/config.json
+  status-report-server /path/to/config.json
 #+END_SRC
 
 From the client side, all you need to do is run the client, pointing
 it at the ip of the server.
 
 #+BEGIN_SRC shell
-  csi -ss client.scm $IP
+  status-report client.scm $IP
 #+END_SRC
 
 It will run, and give a nice output of the processes, and their
@@ -54,7 +64,7 @@ statuses. As an example, if you were to run the report pointed at a
 server config like above you'll get an output like so
 
 #+BEGIN_EXAMPLE
-[~] ->> csi -ss client.scm 192.168.20.26
+[~] ->> status-report 192.168.20.26
 .: Status report for 192.168.20.26 :.
 
 
@@ -65,7 +75,7 @@ Looks like all checks have passed!
 #+END_EXAMPLE
 
 * Example
-Here is an example of status report running on my raspberry pi
+Here is an example of status report running on my Raspberry Pi
 
 [[file:example.png]]
 
@@ -78,4 +88,3 @@ test.json:
       "Test" : "echo UP"
   }
 #+END_SRC
-
