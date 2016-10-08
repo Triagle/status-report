@@ -77,7 +77,7 @@ Looks like all checks have passed!
 * Example
 Here is an example of status report running on my Raspberry Pi
 
-[[file:example.png]]
+https://ipfs.pics/QmeVbxMHsNfZ3jAUB2vuNYbTcJwzENLfZzcYeJcBvyPe3z
 
 The above example uses the following configuration as setup
 
